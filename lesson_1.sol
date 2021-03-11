@@ -20,8 +20,8 @@ contract ZombieFactory {                                        //uint means uns
                                                     // a dynamic Array - has no fixed size, can keep growing:
                                                     //   uint[] dynamicArray;
 
-    Zombie[] public zombies;
-
+    Zombie[] public zombies;                        //You can declare an array as public, and Solidity will automatically create a getter method for it.
+                                                    //Other contracts would then be able to read from, but not write to, this array. So this is a useful pattern for storing public data in your contract.
     mapping (uint => address) public zombieToOwner;
     mapping (address => uint) ownerZombieCount;
 
