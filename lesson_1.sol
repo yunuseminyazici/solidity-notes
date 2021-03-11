@@ -3,8 +3,8 @@ pragma solidity >=0.5.0 <0.6.0;
 contract ZombieFactory {                                        //uint means unsigned integer and meaning its value must be non-negative.
                                                                 //uint is actually an alias for uint256.
                                                                 
-    event NewZombie(uint zombieId, string name, uint dna);
-                                                   
+    event NewZombie(uint zombieId, string name, uint dna);      //Events are a way for your contract to communicate that something happened on the blockchain to your app front-end,
+                                                                // which can be 'listening' for certain events and take action when they happen.
     uint dnaDigits = 16;                        
     uint dnaModulus = 10 ** dnaDigits;         
 
@@ -19,16 +19,16 @@ contract ZombieFactory {                                        //uint means uns
                                                     //   string[5] stringArray;
                                                     // a dynamic Array - has no fixed size, can keep growing:
                                                     //   uint[] dynamicArray;
-
+  
     Zombie[] public zombies;                        //You can declare an array as public, and Solidity will automatically create a getter method for it.
                                                     //Other contracts would then be able to read from, but not write to, this array. So this is a useful pattern for storing public data in your contract.
-    mapping (uint => address) public zombieToOwner;
-    mapping (address => uint) ownerZombieCount;
+                                                    //create a New Zombie: Zombie satoshi = Zombie(172, "Satoshi");
+                                                    //Add that person to the Array: zombies.push(satoshi);
+                                                    //We can also combine these together and do them in one line of code to keep things clean: *zombies.push(Zombie(16, "Vitalik"));*
 
-    function _createZombie(string memory _name, uint _dna) private {
-        uint id = zombies.push(Zombie(_name, _dna)) - 1;
-        zombieToOwner[id] = msg.sender;
-        ownerZombieCount[msg.sender]++;
+    function _createZombie(string memory _name, uint _dna) private {    //You would call this function like so: _createZombie("Yunus", 100);
+                                             
+        uint id = zombies.push(Zombie(_name, _dna)) - 1;                //
         emit NewZombie(id, _name, _dna);
     }
 
@@ -38,7 +38,7 @@ contract ZombieFactory {                                        //uint means uns
     }
 
     function createRandomZombie(string memory _name) public {
-        require(ownerZombieCount[msg.sender] == 0);
+      
         uint randDna = _generateRandomDna(_name);
         _createZombie(_name, randDna);
     }
