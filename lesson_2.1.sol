@@ -26,7 +26,7 @@ contract ZombieFactory {
                                                                   //Note: In Solidity, function execution always needs to start with an external caller.
                                                                   //A contract will just sit on the blockchain doing nothing until someone calls one of its functions. So there will always be a msg.sender.
         
- */ mapping (address => uint) favoriteNumber;
+ /* mapping (address => uint) favoriteNumber;
 
 function setMyNumber(uint _myNumber) public {
   // Update our `favoriteNumber` mapping to store `_myNumber` under `msg.sender`
